@@ -62,7 +62,8 @@ function AcademicDrawerForm({ showDrawer, setShowDrawer, fetchAcademicExperience
         <Form layout="vertical"
               onFinishFailed={onFinishFailed}
               onFinish={onFinish}
-              hideRequiredMark>
+              //hideRequiredMark
+            >
             <Row gutter={16}>
                 <Col span={12}>
                     <Form.Item

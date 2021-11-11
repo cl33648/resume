@@ -9,7 +9,7 @@ import {
 import {useState, useEffect} from "react";
 import WorkDrawerForm from "./WorkDrawerForm";
 import AcademicDrawerForm from "./AcademicDrawerForm";
-import {Layout, Menu, Breadcrumb, Divider, Empty, Table, Spin, Button, Image, Space, Badge, Popconfirm, Radio} from 'antd';
+import {Layout, Menu, Breadcrumb, Divider, Empty, Table, Spin, Button, Space, Badge, Popconfirm, Radio} from 'antd';
 import {
   PieChartOutlined,
   FileOutlined,
