@@ -8,6 +8,7 @@ class ResumeApplicationTests {
 
 	@Test
 	void contextLoads() {
+        Assertions.fail("This is just a test");
 	}
 
 }
