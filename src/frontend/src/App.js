@@ -190,7 +190,7 @@ const removeEducation = (educationId, callback) => {
 
 function App() {
 
-  const[comments, setComments] = useState([]);                //for retrieving comments data to UI
+  //const[comments, setComments] = useState([]);                //for retrieving comments data to UI
   const[workExperiences, setWorkExperiences] = useState([]);  //for retrieving work experiences data to UI
   const[academicExperiences, setAcademicExperiences] = useState([]);
   const[educations, setEducations] = useState([]);
@@ -200,7 +200,7 @@ function App() {
   const[showAcademicDrawer, setShowAcademicDrawer] = useState(false);
   const[showEducationDrawer, setShowEducationDrawer] = useState(false);
 
-
+/*
   //retrieve comments from the backend
   const fetchComments = () =>
     getAllComments()
@@ -210,7 +210,7 @@ function App() {
           setComments(data);
           setFetching(false);
         })
-
+*/
   //retrieve work experiences from backend
   const fetchWorkExperiences = () =>
       getAllWorkExperiences()
