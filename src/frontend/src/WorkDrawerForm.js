@@ -1,4 +1,4 @@
-import {Drawer, Input, Col, Select, Form, Row, Button, Spin} from 'antd';
+import {Drawer, Input, Col, Form, Row, Button, Spin} from 'antd';
 import {addNewWorkExperience} from "./client";
 import {openErrorNotification, openSuccessNotification} from "./Notification";
 import {LoadingOutlined} from "@ant-design/icons";
