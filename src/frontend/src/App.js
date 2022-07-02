@@ -201,7 +201,7 @@ function App() {
   const[showEducationDrawer, setShowEducationDrawer] = useState(false);
 
 
-  //retrieve comments from the backend
+  /**retrieve comments from the backend**/
   const fetchComments = () =>
     getAllComments()
         .then(res => res.json())
@@ -211,7 +211,7 @@ function App() {
           setFetching(false);
         })
 
-  //retrieve work experiences from backend
+  /**retrieve work experiences from backend**/
   const fetchWorkExperiences = () =>
       getAllWorkExperiences()
           .then(res => res.json())  //res.json = Promise object
@@ -231,7 +231,7 @@ function App() {
           )
           .finally( () => setFetching(false));
 
-    //retrieve academic experiences from backend
+    /**retrieve academic experiences from backend**/
     const fetchAcademicExperiences = () =>
         getAllAcademicExperiences()
             .then(res => res.json())  //res.json = Promise object
@@ -251,7 +251,7 @@ function App() {
             )
             .finally( () => setFetching(false));
 
-    //retrieve educations from backend
+    /**retrieve educations from backend**/
     const fetchEducations = () =>
         getAllEducations()
             .then(res => res.json())  //res.json = Promise object
@@ -271,7 +271,7 @@ function App() {
             )
             .finally( () => setFetching(false));
 
-  /*run as soon as page loaded*/
+  /**run as soon as page loaded**/
   useEffect(() => {
     console.log("component is mounted");
     //fetchComments()
@@ -280,13 +280,12 @@ function App() {
     fetchEducations();
   }, []);
 
-  //shows table of work experiences data
+  /**shows table of work experiences data**/
   const renderWorkExperiences = () => {
     if(fetching){
       return <Spin indicator={antIcon} /> //copied from https://ant.design/components/spin/
                                           //when it is fetching students, show loading spin
     }
-
     if(workExperiences.length <= 0){
       return <>
         <WorkDrawerForm
@@ -297,24 +296,23 @@ function App() {
         <Empty/>
       </>
     }else{
-
-    return <>
-      <WorkDrawerForm
-          showDrawer={showDrawer}
-          setShowDrawer={setShowDrawer}
-          fetchWorkExperiences={fetchWorkExperiences} //providing the fetchWorkExperiences to WorkDrawerForm.js for data refresh once work experience added
-      />
-      <Table
-          dataSource={workExperiences}
-          columns={columns(fetchWorkExperiences)}
-          bordered
-          rowKey={work => work.id}    //rowKey property is needed to ensure unique key prop is used for row selection
-      />
-    </>;
+        return <>
+            <WorkDrawerForm
+                showDrawer={showDrawer}
+                setShowDrawer={setShowDrawer}
+                fetchWorkExperiences={fetchWorkExperiences} //providing the fetchWorkExperiences to WorkDrawerForm.js for data refresh once work experience added
+            />
+            <Table
+                dataSource={workExperiences}
+                columns={columns(fetchWorkExperiences)}
+                bordered
+                rowKey={work => work.id}    //rowKey property is needed to ensure unique key prop is used for row selection
+            />
+        </>;
     }
   }
 
-    //shows table of academic experiences data
+    /**shows table of academic experiences data**/
     const renderAcademicExperiences = () => {
         if(fetching){
             return <Spin indicator={antIcon} /> //copied from https://ant.design/components/spin/
@@ -348,7 +346,7 @@ function App() {
         }
     }
 
-    //shows table of education data
+    /**shows table of education data**/
     const renderEducations = () => {
         if(fetching){
             return <Spin indicator={antIcon} /> //copied from https://ant.design/components/spin/
@@ -381,7 +379,7 @@ function App() {
         }
     }
 
-  //html page layout
+  /**html page layout**/
   return <Layout style={{ minHeight: '100vh' }}>
         <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed}>
           <div className="logo" />
@@ -415,7 +413,7 @@ function App() {
                     <Avatar
                         size={100}
                         icon={<UserOutlined />}
-                        src="https://media-exp1.licdn.com/dms/image/C4E03AQFyjqns_h2D_Q/profile-displayphoto-shrink_800_800/0/1553789415169?e=1641427200&v=beta&t=ZvGzWJV6FWCQgQkswFP78x6bB6-2zahvD3g8wHwCPn8"
+                        src="https://media-exp2.licdn.com/dms/image/C4E03AQFyjqns_h2D_Q/profile-displayphoto-shrink_800_800/0/1553789415169?e=1661385600&v=beta&t=LFXGYOR4AHCU8-tzM0XMZsMhUQ_wAUoopM_pdKX9Jzk"
                     />
                     <p className="intro-paragraph" style={{margin: '0 0 0 15px'}}>
                         Experienced IT Professional with a demonstrated history of working in the software analysis and support.
