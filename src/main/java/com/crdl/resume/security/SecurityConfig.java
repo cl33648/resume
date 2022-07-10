@@ -1,6 +1,7 @@
 package com.crdl.resume.security;
 
 import com.crdl.resume.filter.CustomAuthenticationFilter;
+import com.crdl.resume.filter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @RequiredArgsConstructor
@@ -33,13 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.authorizeRequests().antMatchers("/api/login/**").permitAll();
-//        http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/v1/account/clients/**").hasAnyAuthority("ROLE_ADMIN");
-//        http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/v1/account/client/save/**").hasAnyAuthority("ROLE_ADMIN");
-//        http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/v1/account/role/save/**").hasAnyAuthority("ROLE_ADMIN");
-//        http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/v1/account/role/addtoclient/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers("/api/login/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/v1/account/clients/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/v1/account/client/save/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/v1/account/role/save/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/v1/account/role/addtoclient/**").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().anyRequest().permitAll();
         http.addFilter(customAuthenticationFilter);
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
