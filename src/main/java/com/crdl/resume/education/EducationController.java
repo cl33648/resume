@@ -1,5 +1,6 @@
 package com.crdl.resume.education;
 
+import com.crdl.resume.work.WorkExperience;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,11 @@ public class EducationController {
     @PostMapping
     public void addEducation(@Valid @RequestBody Education education){
         educationService.addEducation(education);
+    }
+
+    @PutMapping(path = "{educationId}")
+    public void editWorkExperience(@PathVariable("educationId") Long id, @Valid @RequestBody Education education){
+        educationService.editEducation(id, education);
     }
 
     @DeleteMapping(path = "{educationId}")

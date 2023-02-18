@@ -20,6 +20,13 @@ public class WorkExperienceService {
         workExperienceRepository.save(workExperience);
     }
 
+    public void editWorkExperience(Long id, WorkExperience workExperience){
+        if(!workExperienceRepository.existsById(id)){
+            throw new NotFoundException("Work Experience with id "+id+" does not exist.");
+        }
+        workExperienceRepository.save(workExperience);
+    }
+
     public void deleteWorkExperience(Long workExperienceId){
 
         if(!workExperienceRepository.existsById(workExperienceId)){

@@ -24,6 +24,11 @@ public class WorkExperienceController {
         workExperienceService.addWorkExperience(workExperience);
     }
 
+    @PutMapping(path = "{workId}")
+    public void editWorkExperience(@PathVariable("workId") Long id, @Valid @RequestBody WorkExperience workExperience){
+        workExperienceService.editWorkExperience(id, workExperience);
+    }
+
     @DeleteMapping(path = "{workId}")
     public void deleteWorkExperience(@PathVariable("workId") Long workExperienceId){
         workExperienceService.deleteWorkExperience(workExperienceId);
