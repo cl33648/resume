@@ -17,6 +17,11 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
 
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 'v18.14.1'
+
     - name: Maven Clean Package Jar
       run: |
-        ./mvnw clean package -P build-copy-angular -X
+        ./mvnw clean package -P build-copy-angular
