@@ -1,7 +1,6 @@
 package com.crdl.resume.education;
 
 import com.crdl.resume.exception.NotFoundException;
-import com.crdl.resume.work.WorkExperience;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
