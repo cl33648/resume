@@ -19,4 +19,4 @@ jobs:
 
     - name: Maven Clean Package Jar
       run: |
-        ./mvnw clean package -P build-copy-angular
+        ./mvnw clean package -P build-copy-angular -X
