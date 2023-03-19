@@ -17,8 +17,13 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
 
-    - name: Upgrade npm to latest version
-      run: npm install -g npm@latest
+    - name: Remove node_modules and reinstall dependencies
+      run: |
+        cd src/angular
+        ls -al
+        rm -rf node_modules
+        npm install
+        cd ..
 
     - name: Check Node.js and npm versions
       run: |
