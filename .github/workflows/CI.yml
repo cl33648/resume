@@ -17,6 +17,11 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
 
+    - name: Check Node.js and npm versions
+      run: |
+        node --version
+        npm --version
+
     - name: Maven Clean Package Jar
       run: |
         ./mvnw clean package -P build-copy-angular
