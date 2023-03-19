@@ -21,7 +21,7 @@ jobs:
       run: |
         cd src/angular
         npm install socks --save-dev
-        ls -al node/node_modules/npm/node_modules/socks/build
+        ls -al node/node_modules/npm/node_modules
         cat node_modules/socks/package.json
         cat node/node_modules/npm/node_modules/socks/build/index.js
         cd ..
