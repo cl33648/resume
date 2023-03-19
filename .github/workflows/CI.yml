@@ -17,6 +17,9 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
 
+    - name: Upgrade npm to latest version
+      run: npm install -g npm@latest
+
     - name: Check Node.js and npm versions
       run: |
         node --version
