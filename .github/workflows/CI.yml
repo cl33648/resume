@@ -21,12 +21,17 @@ jobs:
       run: |
         cd src/angular
         npm install socks --save-dev
+
         echo "checking content of node/node_modules/npm/node_modules"
         ls -al node/node_modules/npm/node_modules
+
         echo "checking content of socks"
         ls -al node/node_modules/npm/node_modules/socks
+
+        echo '{ "main": "index.js" }' > node_modules/socks/package.json
         echo "checking content of node_modules/socks/package.json"
         cat node_modules/socks/package.json
+
         cd ..
 
     - name: Check Node.js and npm versions
