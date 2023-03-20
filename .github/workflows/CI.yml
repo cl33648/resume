@@ -29,13 +29,13 @@ jobs:
         npm --version
 
     - name: npm ci and npm run build
-        run: |
-          pwd
-          cd src/angular
-          npm ci
-          npm run build:ci
-          cd ../..
-          pwd
+      run: |
+        pwd
+        cd src/angular
+        npm ci
+        npm run build:ci
+        cd ../..
+        pwd
 
     - name: Maven Clean Package Jar
       run: |
