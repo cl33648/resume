@@ -33,7 +33,7 @@ jobs:
         pwd
         cd src/angular
         npm ci
-        npm run build:ci
+        npm run build
         cd ../..
         pwd
 
