@@ -22,12 +22,20 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 'v18.15.0'
-        npm-version: '9.5.0'
 
     - name: Check Node.js and npm versions
       run: |
         node --version
         npm --version
+
+    - name: npm ci and npm run build
+        run: |
+          pwd
+          cd src/angular
+          npm ci
+          npm run build:ci
+          cd ../..
+          pwd
 
     - name: Maven Clean Package Jar
       run: |
