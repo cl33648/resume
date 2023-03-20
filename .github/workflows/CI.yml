@@ -30,10 +30,21 @@ jobs:
 
     - name: npm ci and npm run build
       run: |
+        echo "CURRENT DIRECTORY"
         pwd
+
+        echo "MOVING INTO ANGULAR PROJECT"
         cd src/angular
+        pwd
+
+        echo "NPM CI & NPM RUN BUILD"
         npm ci
         npm run build
+
+        echo "CHECKING CONTENT OF SOCKS"
+        ls -al /home/runner/work/resume/resume/src/angular/node/node_modules/npm/node_modules/socks
+
+        echo "MOVING BACK TO ROOT"
         cd ../..
         pwd
 
