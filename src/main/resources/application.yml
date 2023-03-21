@@ -1,10 +1,10 @@
 spring:
-#  config:
-#    import: configtree:/Users/conradlee/Documents/secrets/prod/
+  config:
+    import: configtree:/Users/conradlee/Documents/secrets/prod/
   datasource:
-    url: jdbc:mysql://awseb-e-sswbpy8npt-stack-awsebrdsdatabase-x2459ohhobrv.c1qzailt9sar.us-east-1.rds.amazonaws.com:3306/resumedb
-    username: crdl93
-    password: lol1409916
+    url: ${AWS_RESUME_DB_ENDPOINT}
+    username: ${AWS_RESUME_DB_USERNAME}
+    password: ${AWS_RESUME_DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
