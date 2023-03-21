@@ -31,10 +31,11 @@ jobs:
         echo "MOVING INTO ANGULAR PROJECT"
         cd src/angular
         pwd
-        ls -al src/angular
+        ls -al
 
         echo "DELETING NODE"
         rm -rf node
+        ls -al
 
         echo "MOVING BACK TO ROOT"
         cd ../..
