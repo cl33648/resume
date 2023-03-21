@@ -23,6 +23,23 @@ jobs:
         node --version
         npm --version
 
+    - name: Delete Node
+      run: |
+        echo "CURRENT DIRECTORY"
+        pwd
+
+        echo "MOVING INTO ANGULAR PROJECT"
+        cd src/angular
+        pwd
+        ls -al src/angular
+
+        echo "DELETING NODE"
+        rm -rf node
+
+        echo "MOVING BACK TO ROOT"
+        cd ../..
+        pwd
+
 #    - name: npm ci and npm run build
 #      run: |
 #        echo "CURRENT DIRECTORY"
