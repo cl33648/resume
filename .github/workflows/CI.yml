@@ -18,15 +18,26 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 'v18.15.0'
-
     - name: Check Node.js and npm versions
       run: |
         node --version
         npm --version
+
+    - name: move into angular
+      run: |
+        cd src/angular
+        pwd
+
+    - name: Install npm dependencies
+      uses: chill-viking/npm-ci@latest
+
+    - name: move back to root
+      run: |
+        echo "CHECKING CONTENT OF SOCKS"
+        ls -al /home/runner/work/resume/resume/src/angular/node/node_modules/npm/node_modules/socks
+
+        echo "MOVING BACK TO ROOT"
+        cd ../..
 
 #    - name: npm ci and npm run build
 #      run: |

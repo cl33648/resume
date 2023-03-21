@@ -112,12 +112,12 @@
 								</goals>
 							</execution>
 							<execution>
-								<id>npm ci</id>
+								<id>npm install</id>
 								<goals>
 									<goal>npm</goal>
 								</goals>
 								<configuration>
-									<arguments>ci</arguments>
+									<arguments>install</arguments>
 								</configuration>
 							</execution>
 							<execution>
