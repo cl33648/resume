@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 env:
-  RESOURCES_FILE_PATH : /home/runner/work/resume/resume/src/main/resources/
+  RESOURCES_FILE_PATH : /home/runner/work/resume/resume/src/main/resources
 
 jobs:
   build:
@@ -28,14 +28,15 @@ jobs:
 
     - name: Update Application YML File
       run: |
-        echo "${RESOURCE_FILE_PATH}"
+        echo "${RESOURCE_FILE_PATH}/application.yml"
+        cat "${RESOURCES_FILE_PATH}/application.yml"
         ls -al "${RESOURCES_FILE_PATH}"
-        sed -i '' 's/config\:/# config\:/' "${RESOURCES_FILE_PATH}application.yml"
-        sed -i '' 's/import\:/# import\:/' "${RESOURCES_FILE_PATH}application.yml"
-        sed -ri 's,${AWS_RESUME_DB_ENDPOINT},'${{ secrets.AWS_RESUME_DB_ENDPOINT }}',g' "${RESOURCES_FILE_PATH}application.yml"
-        sed -ri 's,${AWS_RESUME_DB_USERNAME},'${{ secrets.AWS_RESUME_DB_USERNAME }}',g' "${RESOURCES_FILE_PATH}application.yml"
-        sed -ri 's,${AWS_RESUME_DB_PASSWORD},'${{ secrets.AWS_RESUME_DB_PASSWORD }}',g' "${RESOURCES_FILE_PATH}application.yml"
-        cat "${RESOURCES_FILE_PATH}application.yml"
+        sed -i '' 's/config\:/# config\:/' "${RESOURCES_FILE_PATH}/application.yml"
+        sed -i '' 's/import\:/# import\:/' "${RESOURCES_FILE_PATH}/application.yml"
+        sed -ri 's,${AWS_RESUME_DB_ENDPOINT},'${{ secrets.AWS_RESUME_DB_ENDPOINT }}',g' "${RESOURCES_FILE_PATH}/application.yml"
+        sed -ri 's,${AWS_RESUME_DB_USERNAME},'${{ secrets.AWS_RESUME_DB_USERNAME }}',g' "${RESOURCES_FILE_PATH}/application.yml"
+        sed -ri 's,${AWS_RESUME_DB_PASSWORD},'${{ secrets.AWS_RESUME_DB_PASSWORD }}',g' "${RESOURCES_FILE_PATH}/application.yml"
+        cat "${RESOURCES_FILE_PATH}/application.yml"
 
 
     - name: Maven Clean Package Jar
