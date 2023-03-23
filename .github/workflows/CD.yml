@@ -51,6 +51,7 @@ jobs:
           AWS_RESUME_DB_PASSWORD: ${{ secrets.AWS_RESUME_DB_PASSWORD }}
 
       - name: Maven Clean Package and Push to Dockerhub
+        if: ${{ success() }}
         run: |
           ./mvnw clean package \
             -P build-copy-angular \
