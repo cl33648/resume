@@ -28,11 +28,11 @@ jobs:
 
     - name: Update Application YML File
       run: |
-        sed -i 's/config\:/# &/' ${RESOURCES_FILE_PATH}application.yml
-        sed -i 's/import\:/# &/' ${RESOURCES_FILE_PATH}application.yml
-        sed -i 's/${AWS_RESUME_DB_ENDPOINT}/'"${{ secrets.AWS_RESUME_DB_ENDPOINT }}/"'g' ${RESOURCES_FILE_PATH}application.yml
-        sed -i 's/${AWS_RESUME_DB_USERNAME}/'"${{ secrets.AWS_RESUME_DB_USERNAME }}/"'g' ${RESOURCES_FILE_PATH}application.yml
-        sed -i 's/${AWS_RESUME_DB_PASSWORD}/'"${{ secrets.AWS_RESUME_DB_PASSWORD }}/"'g' ${RESOURCES_FILE_PATH}application.yml
+        sed -i '' 's/config\:/# config\:/' ${RESOURCES_FILE_PATH}application.yml
+        sed -i '' 's/import\:/# import\:/' ${RESOURCES_FILE_PATH}application.yml
+        sed -ri 's,${AWS_RESUME_DB_ENDPOINT},'${{ secrets.AWS_RESUME_DB_ENDPOINT }}',g' ${RESOURCES_FILE_PATH}application.yml
+        sed -ri 's,${AWS_RESUME_DB_USERNAME},'${{ secrets.AWS_RESUME_DB_USERNAME }}',g' ${RESOURCES_FILE_PATH}application.yml
+        sed -ri 's,${AWS_RESUME_DB_PASSWORD},'${{ secrets.AWS_RESUME_DB_PASSWORD }}',g' ${RESOURCES_FILE_PATH}application.yml
         cat ${RESOURCES_FILE_PATH}application.yml
 
 
