@@ -30,8 +30,8 @@ jobs:
       run: |
         cat /home/runner/work/resume/resume/src/main/resources/application.yml
         ls -al /home/runner/work/resume/resume/src/main/resources
-        sed -i 's/config\:/# config\:/' /home/runner/work/resume/resume/src/main/resources/application.yml
-        sed -i 's/import\:/# import\:/' /home/runner/work/resume/resume/src/main/resources/application.yml
+        sed -ri 's/config\:/# config\:/' /home/runner/work/resume/resume/src/main/resources/application.yml
+        sed -ri 's/import\:/# import\:/' /home/runner/work/resume/resume/src/main/resources/application.yml
         sed -ri 's,${AWS_RESUME_DB_ENDPOINT},'${{ secrets.AWS_RESUME_DB_ENDPOINT }}',g' /home/runner/work/resume/resume/src/main/resources/application.yml
         sed -ri 's,${AWS_RESUME_DB_USERNAME},'${{ secrets.AWS_RESUME_DB_USERNAME }}',g' /home/runner/work/resume/resume/src/main/resources/application.yml
         sed -ri 's,${AWS_RESUME_DB_PASSWORD},'${{ secrets.AWS_RESUME_DB_PASSWORD }}',g' /home/runner/work/resume/resume/src/main/resources/application.yml
