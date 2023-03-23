@@ -30,7 +30,7 @@ jobs:
       run: |
         cat /home/runner/work/resume/resume/src/main/resources/application.yml
         ls -al /home/runner/work/resume/resume/src/main/resources
-        sed -i '0,/^spring:\s*config:/{s//spring:\n  #config:/}' /home/runner/work/resume/resume/src/main/resources/application.yml
+        sed -i 's/config:/#config:/g' /home/runner/work/resume/resume/src/main/resources/application.yml
         cat /home/runner/work/resume/resume/src/main/resources/application.yml
         sed -ri 's/import\:/# import\:/' /home/runner/work/resume/resume/src/main/resources/application.yml
         sed -ri 's,${AWS_RESUME_DB_ENDPOINT},'${{ secrets.AWS_RESUME_DB_ENDPOINT }}',g' /home/runner/work/resume/resume/src/main/resources/application.yml
