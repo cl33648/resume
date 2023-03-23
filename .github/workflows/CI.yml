@@ -36,12 +36,12 @@ jobs:
         echo "CHECKING application.yml AFTER REPLACING CONFIG AND IMPORT"
         cat /home/runner/work/resume/resume/src/main/resources/application.yml
 
-        sed -i 's/${AWS_RESUME_DB_ENDPOINT}/'"$AWS_RESUME_DB_ENDPOINT"'/g' /home/runner/work/resume/resume/src/main/resources/application.yml
+        sed -i 's|${AWS_RESUME_DB_ENDPOINT}|'"$AWS_RESUME_DB_ENDPOINT"'|g' /home/runner/work/resume/resume/src/main/resources/application.yml
         echo "CHECKING application.yml AFTER REPLACING DB ENDPOINT"
         cat /home/runner/work/resume/resume/src/main/resources/application.yml
 
-        sed -i 's/${AWS_RESUME_DB_USERNAME}/'"$AWS_RESUME_DB_USERNAME"'/g' /home/runner/work/resume/resume/src/main/resources/application.yml
-        sed -i 's/${AWS_RESUME_DB_PASSWORD}/'"$AWS_RESUME_DB_PASSWORD"'/g' /home/runner/work/resume/resume/src/main/resources/application.yml
+        sed -i 's|${AWS_RESUME_DB_USERNAME}|'"$AWS_RESUME_DB_USERNAME"'|g' /home/runner/work/resume/resume/src/main/resources/application.yml
+        sed -i 's|${AWS_RESUME_DB_PASSWORD}|'"$AWS_RESUME_DB_PASSWORD"'|g' /home/runner/work/resume/resume/src/main/resources/application.yml
 
         echo "CHECKING application.yml AFTER REPLACING ALL DB INFO"
         cat /home/runner/work/resume/resume/src/main/resources/application.yml
