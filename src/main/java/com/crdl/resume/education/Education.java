@@ -33,6 +33,10 @@ public class Education {
     private String degree;
     @NotBlank
     @Column(nullable = false)
-    private String duration;
+    private String major;
+    @NotBlank
+    @Column(nullable = false)
+    private String startDate;
+    private String graduationDate;
     private String description;
 }

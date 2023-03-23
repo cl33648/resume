@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>{{certificateAction}} Certificate</h1>
+
+<div mat-dialog-content>
+    <form [formGroup]="certificateForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Certificate Title</mat-label>
+            <input formControlName="certificateTitle" matInput placeholder="What is the certificate title?">
+        </mat-form-field>
+
+        <!-- <mat-form-field appearance="fill">
+            <mat-label>Certificate acquired date & expiration date (if there is one)</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input formControlName="acquiredDate" matStartDate placeholder="Acquired date">
+                <input formControlName="expirationDate" matEndDate placeholder="Expiration date">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field> -->
+
+        <mat-form-field color="accent" appearance="fill">
+            <mat-label>Acquired Date</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="acquiredDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Expiration Date</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="expirationDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+          </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Certificate Description</mat-label>
+            <textarea formControlName="description" matInput></textarea>
+        </mat-form-field>
+    </form>
+</div>
+
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" style="margin-left: 8px" (click)="addCertificate()">{{actionBtn}}</button>
+</div>
+

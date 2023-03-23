@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>{{educationAction}} Education</h1>
+
+<div mat-dialog-content>
+    <form [formGroup]="educationForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Education Institute</mat-label>
+            <input formControlName="institute" matInput placeholder="What is the education institute name?">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Degree</mat-label>
+            <mat-select placeholder="Degree" formControlName="degree">
+                <mat-option value="ASSOCIATE">Associate's degree</mat-option>
+                <mat-option value="BACHELOR">Bachelor's degree</mat-option>
+                <mat-option value="MASTER">Master's degree</mat-option>
+                <mat-option value="DOCTORATE">Doctorate degree</mat-option>
+                <mat-option value="PROFESSIONAL">Professional degree</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Major</mat-label>
+            <input formControlName="major" matInput placeholder="What did you study?">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Enter the date range studied at this institution</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input formControlName="startDate" matStartDate placeholder="Start date">
+                <input formControlName="graduationDate" matEndDate placeholder="Graduation date">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Education Description</mat-label>
+            <textarea formControlName="description" matInput></textarea>
+        </mat-form-field>
+    </form>
+</div>
+
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" style="margin-left: 8px" (click)="addEducation()">{{actionBtn}}</button>
+</div>

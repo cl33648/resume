@@ -1,0 +1,15 @@
+spring:
+  config:
+    import: configtree:/Users/conradlee/Documents/secrets/prod/
+  datasource:
+    url: ${AWS_RESUME_DB_ENDPOINT}
+    username: ${AWS_RESUME_DB_USERNAME}
+    password: ${AWS_RESUME_DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    show-sql: true

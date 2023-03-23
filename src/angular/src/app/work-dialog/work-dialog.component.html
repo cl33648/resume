@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>{{workAction}} Work Experience</h1>
+
+<div mat-dialog-content>
+    <form [formGroup]="workForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Company</mat-label>
+            <input formControlName="company" matInput placeholder="What is the company name?">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Job Title</mat-label>
+            <input formControlName="jobTitle" matInput placeholder="What is your job title for this company?">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Enter the date range for this work</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input formControlName="startDate" matStartDate placeholder="Start date">
+                <input formControlName="endDate" matEndDate placeholder="End date">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Job Description</mat-label>
+            <textarea formControlName="description" matInput></textarea>
+        </mat-form-field>
+    </form>
+</div>
+
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" style="margin-left: 8px" (click)="addWorkExperience()">{{actionBtn}}</button>
+</div>

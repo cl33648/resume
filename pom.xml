@@ -12,12 +12,14 @@
 	<artifactId>resume</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>resume</name>
-	<description>fullstack resume </description>
+	<description>fullstack resume</description>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 		<app.image.name>conrad-resume</app.image.name>
 		<app.image.tag/>
+		<frontend.app.image.name>ng-resume-frontend</frontend.app.image.name>
+		<frontend.app.image.tag/>
 	</properties>
 
 	<dependencies>
@@ -40,9 +42,9 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.23</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -67,10 +69,10 @@
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>jib-maven-plugin</artifactId>
-				<version>2.5.2</version>
+				<version>3.3.1</version>
 				<configuration>
 					<from>
-						<image>openjdk:8</image>
+						<image>openjdk:17</image>
 					</from>
 					<container>
 						<ports>
@@ -84,23 +86,23 @@
 	</build>
 
 	<profiles>
+
 		<profile>
-			<id>build-frontend</id>
+			<id>build-copy-angular</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<build>
 				<plugins>
+					<!--Build Angular Frontend-->
 					<plugin>
 						<groupId>com.github.eirslett</groupId>
 						<artifactId>frontend-maven-plugin</artifactId>
-						<!-- Use the latest released version:
-                                  https://repo1.maven.org/maven2/com/github/eirslett/frontend-maven-plugin/ -->
 						<version>1.12.0</version>
 						<configuration>
-							<nodeVersion>v15.4.0</nodeVersion>
-							<npmVersion>7.3.0</npmVersion>
-							<workingDirectory>src/frontend</workingDirectory>
+							<nodeVersion>v18.15.0</nodeVersion>
+							<npmVersion>9.5.0</npmVersion>
+							<workingDirectory>src/angular</workingDirectory>
 						</configuration>
 						<executions>
 							<execution>
@@ -108,10 +110,6 @@
 								<goals>
 									<goal>install-node-and-npm</goal>
 								</goals>
-								<!--	<configuration>
-                                        <nodeVersion>v15.4.0</nodeVersion>
-                                        <npmVersion>7.3.0</npmVersion>
-                                    </configuration> -->
 							</execution>
 							<execution>
 								<id>npm install</id>
@@ -133,11 +131,14 @@
 							</execution>
 						</executions>
 					</plugin>
+					<!--copy angular build output src/angular/dist/resume-ng-frontend
+						to spring backend output target/classes/static-->
 					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-resources-plugin</artifactId>
 						<executions>
 							<execution>
-								<id>copy-build-folder</id>
+								<id>copy-angular-dist-folder</id>
 								<phase>process-classes</phase>
 								<goals>
 									<goal>copy-resources</goal>
@@ -145,7 +146,7 @@
 								<configuration>
 									<resources>
 										<resource>
-											<directory>src/frontend/build</directory>
+											<directory>src/angular/dist/resume-ng-frontend</directory>
 										</resource>
 									</resources>
 									<outputDirectory>${basedir}/target/classes/static</outputDirectory>
@@ -156,7 +157,53 @@
 				</plugins>
 			</build>
 		</profile>
+
 		<profile>
+			<!-- Build Only Angular into docker image from src/angular/Dockerfile & push local
+					run command 'mvn clean compile jib:dockerBuild -P angular-docker-image -Dfrontend.app.image.tag=version' -->
+			<id>angular-docker-image</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.google.cloud.tools</groupId>
+						<artifactId>jib-maven-plugin</artifactId>
+						<version>3.3.1</version>
+						<configuration>
+							<from>
+								<image>node:latest</image>
+							</from>
+							<container>
+								<workDirectory>/app</workDirectory>
+								<mainClass>nginx</mainClass>
+							</container>
+							<extraDirectories>
+								<extraDirectory>
+									<path>src/angular</path>
+									<outputPath>.</outputPath>
+								</extraDirectory>
+							</extraDirectories>
+							<to>
+								<image>crdl93/${frontend.app.image.name}:${frontend.app.image.tag}</image>
+							</to>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<!-- Push latest and custom tag(-Dapp.image.tag) of docker image to local
+					mvn clean install -P build-copy-angular -P jib-push-to-local -Dapp.image.tag=version -->
 			<id>jib-push-to-local</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
@@ -166,10 +213,10 @@
 					<plugin>
 						<groupId>com.google.cloud.tools</groupId>
 						<artifactId>jib-maven-plugin</artifactId>
-						<version>2.5.2</version>
+						<version>3.3.1</version>
 						<configuration>
 							<from>
-								<image>openjdk:8</image>
+								<image>openjdk:17</image>
 							</from>
 							<container>
 								<ports>
@@ -208,7 +255,10 @@
 				</plugins>
 			</build>
 		</profile>
+
 		<profile>
+			<!-- Push latest and custom tag(-Dapp.image.tag) of docker image to docker hub
+				 mvn clean install -P build-copy-angular -P jib-push-to-dockerhub -Dapp.image.tag=version -->
 			<id>jib-push-to-dockerhub</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
@@ -218,10 +268,10 @@
 					<plugin>
 						<groupId>com.google.cloud.tools</groupId>
 						<artifactId>jib-maven-plugin</artifactId>
-						<version>2.5.2</version>
+						<version>3.3.1</version>
 						<configuration>
 							<from>
-								<image>openjdk:8</image>
+								<image>openjdk:17</image>
 							</from>
 							<container>
 								<ports>

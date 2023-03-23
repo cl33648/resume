@@ -1,4 +1,4 @@
-package com.crdl.resume.work;
+package com.crdl.resume.certificate;
 
 import lombok.*;
 
@@ -13,27 +13,24 @@ import javax.validation.constraints.NotBlank;
 @EqualsAndHashCode
 @Entity
 @Table
-public class WorkExperience {
+public class Certificate {
     @Id
     @SequenceGenerator(
-            name="work_sequence",
-            sequenceName = "work_sequence",
+            name="certificate_sequence",
+            sequenceName = "certificate_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
-            generator = "work_sequence",
+            generator = "certificate_sequence",
             strategy = GenerationType.SEQUENCE
     )
     private Long id;
     @NotBlank
     @Column(nullable = false)
-    private String company;
+    private String certificateTitle;
     @NotBlank
     @Column(nullable = false)
-    private String jobTitle;
-    @NotBlank
-    @Column(nullable = false)
-    private String startDate;
-    private String endDate;
+    private String acquiredDate;
+    private String expirationDate;
     private String description;
 }

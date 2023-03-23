@@ -19,12 +19,17 @@ public class EducationService {
         educationRepository.save(education);
     }
 
-    public void deleteEducation(Long educationId){
+    public void editEducation(Long id, Education education){
+        if(!educationRepository.existsById(id)){
+            throw new NotFoundException("Education with id "+id+" does not exist.");
+        }
+        educationRepository.save(education);
+    }
 
+    public void deleteEducation(Long educationId){
         if(!educationRepository.existsById(educationId)){
             throw new NotFoundException("Education with id "+educationId+" does not exist.");
         }
-
         educationRepository.deleteById(educationId);
     }
 }
