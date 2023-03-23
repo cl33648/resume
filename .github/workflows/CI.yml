@@ -35,9 +35,9 @@ jobs:
         sed -i 's/import:/#import:/g' /home/runner/work/resume/resume/src/main/resources/application.yml
         echo "CHECKING application.yml AFTER REPLACING CONFIG AND IMPORT"
         cat /home/runner/work/resume/resume/src/main/resources/application.yml
-        sed -ri 's/${AWS_RESUME_DB_ENDPOINT}/${{ secrets.AWS_RESUME_DB_ENDPOINT }}/g' /home/runner/work/resume/resume/src/main/resources/application.yml
-        sed -ri 's/${AWS_RESUME_DB_USERNAME}/${{ secrets.AWS_RESUME_DB_USERNAME }}/g' /home/runner/work/resume/resume/src/main/resources/application.yml
-        sed -ri 's/${AWS_RESUME_DB_PASSWORD}/${{ secrets.AWS_RESUME_DB_PASSWORD }}/g' /home/runner/work/resume/resume/src/main/resources/application.yml
+        sed -i 's/${AWS_RESUME_DB_ENDPOINT}/${{ secrets.AWS_RESUME_DB_ENDPOINT }}/g' /home/runner/work/resume/resume/src/main/resources/application.yml
+        sed -i 's/${AWS_RESUME_DB_USERNAME}/${{ secrets.AWS_RESUME_DB_USERNAME }}/g' /home/runner/work/resume/resume/src/main/resources/application.yml
+        sed -i 's/${AWS_RESUME_DB_PASSWORD}/${{ secrets.AWS_RESUME_DB_PASSWORD }}/g' /home/runner/work/resume/resume/src/main/resources/application.yml
         cat /home/runner/work/resume/resume/src/main/resources/application.yml
 
 
