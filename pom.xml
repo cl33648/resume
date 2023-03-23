@@ -90,7 +90,7 @@
 		<profile>
 			<id>build-copy-angular</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<build>
 				<plugins>
