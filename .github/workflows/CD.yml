@@ -5,7 +5,9 @@ on:
     branches: [ master ]
 
 env:
+  # Directories of files which need to be updated for deployment
   RESOURCES_FILE_PATH : /home/runner/work/resume/resume/src/main/resources
+  ENV_FILE_PATH: /home/runner/work/resume/resume/src/angular/src/environments
   # DockerHub
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   # AWS & Elastic Bean Stalk
@@ -49,6 +51,12 @@ jobs:
           AWS_RESUME_DB_ENDPOINT: ${{ secrets.AWS_RESUME_DB_ENDPOINT }}
           AWS_RESUME_DB_USERNAME: ${{ secrets.AWS_RESUME_DB_USERNAME }}
           AWS_RESUME_DB_PASSWORD: ${{ secrets.AWS_RESUME_DB_PASSWORD }}
+
+      - name: Update Angular Environment Typescript File
+        run: |
+          ENV_TS="${ENV_FILE_PATH}/environment.ts"
+          sed -i 's|localhost:8080|http://conrad-resume.us-east-1.elasticbeanstalk.com|g' $ENV_TS
+          cat $ENV_TS
 
       - name: Maven Clean Package and Push to Dockerhub
         if: ${{ success() }}
