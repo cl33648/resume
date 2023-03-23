@@ -5,6 +5,7 @@ on:
     branches: [ master ]
 
 env:
+  RESOURCES_FILE_PATH : /home/runner/work/resume/resume/src/main/resources
   # DockerHub
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   # AWS & Elastic Bean Stalk
@@ -35,6 +36,20 @@ jobs:
           username: ${{ env.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Update Application YML File
+        run: |
+          APPLICATION_YML="${RESOURCES_FILE_PATH}/application.yml"
+          sed -i 's/config:/#config:/g' $APPLICATION_YML
+          sed -i 's/import:/#import:/g' $APPLICATION_YML
+          sed -i 's|${AWS_RESUME_DB_ENDPOINT}|'"$AWS_RESUME_DB_ENDPOINT"'|g' $APPLICATION_YML
+          sed -i 's|${AWS_RESUME_DB_USERNAME}|'"$AWS_RESUME_DB_USERNAME"'|g' $APPLICATION_YML
+          sed -i 's|${AWS_RESUME_DB_PASSWORD}|'"$AWS_RESUME_DB_PASSWORD"'|g' $APPLICATION_YML
+          cat $APPLICATION_YML
+        env:
+          AWS_RESUME_DB_ENDPOINT: ${{ secrets.AWS_RESUME_DB_ENDPOINT }}
+          AWS_RESUME_DB_USERNAME: ${{ secrets.AWS_RESUME_DB_USERNAME }}
+          AWS_RESUME_DB_PASSWORD: ${{ secrets.AWS_RESUME_DB_PASSWORD }}
+
       - name: Maven Clean Package and Push to Dockerhub
         run: |
           ./mvnw clean package \
@@ -42,19 +57,20 @@ jobs:
             -P jib-push-to-dockerhub \
             -Dapp.image.tag=${{steps.build-number.outputs.BUILD_NUMBER}}
 
-      - name: Update and commit app version in docker-compose.yaml
-        run: |
-          BUILD_NUMBER=${{steps.build-number.outputs.BUILD_NUMBER}}
-          echo -e "Current elasticbeanstalk/docker-compose.yml\n$(cat elasticbeanstalk/docker-compose.yml)"
-          sed -i -E 's_(crdl93/conrad-resume:)([^"]*)_\1'${BUILD_NUMBER}'_' elasticbeanstalk/docker-compose.yml
-          echo -e "Current elasticbeanstalk/docker-compose.yml\n$(cat elasticbeanstalk/docker-compose.yml)"
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add elasticbeanstalk/docker-compose.yml
-          git commit -m "new app version: ${BUILD_NUMBER}"
-          git push
+#      - name: Update and commit app version in docker-compose.yaml
+#        run: |
+#          BUILD_NUMBER=${{steps.build-number.outputs.BUILD_NUMBER}}
+#          echo -e "Original elasticbeanstalk/docker-compose.yml\n$(cat elasticbeanstalk/docker-compose.yml)"
+#          sed -i -E 's_(crdl93/conrad-resume:)([^"]*)_\1'${BUILD_NUMBER}'_' elasticbeanstalk/docker-compose.yml
+#          echo -e "Updated elasticbeanstalk/docker-compose.yml\n$(cat elasticbeanstalk/docker-compose.yml)"
+#          git config user.name github-actions
+#          git config user.email github-actions@github.com
+#          git add elasticbeanstalk/docker-compose.yml
+#          git commit -m "new app version: ${BUILD_NUMBER}"
+#          git push
 
       - name: Beanstalk Deploy
+        if: ${{ success() }}
         uses: einaregilsson/beanstalk-deploy@ebe3476a4ce991d54336935e75e78dd9d86f9408
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
