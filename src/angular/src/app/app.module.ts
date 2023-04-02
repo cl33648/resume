@@ -25,6 +25,8 @@ import { EducationDialogComponent } from './education-dialog/education-dialog.co
 import { MatSelectModule } from '@angular/material/select';
 import { CertificateDialogComponent } from './certificate-dialog/certificate-dialog.component';
 import { SkillDialogComponent } from './skill-dialog/skill-dialog.component';
+import { LoginComponent } from './login/login.component';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { SkillDialogComponent } from './skill-dialog/skill-dialog.component';
     WorkDialogComponent,
     EducationDialogComponent,
     CertificateDialogComponent,
-    SkillDialogComponent
+    SkillDialogComponent,
+    LoginComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
